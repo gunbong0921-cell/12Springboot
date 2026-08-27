@@ -45,8 +45,9 @@ public class BoardController {
 	@PostMapping("/write.do")
 	public String boardWritePost(BoardDTO boardDTO) {
 		int result = dao.write(boardDTO);
+    //전송된 폼값은 한번에 받아서 Mapper로 전달 
 		System.out.println("글쓰기결과:" + result);
-		
+		//작성이 완료되면 목록으로 이동 
 		return "redirect:list.do";
 	}
 	
