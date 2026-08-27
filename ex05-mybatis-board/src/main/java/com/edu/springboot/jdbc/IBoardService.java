@@ -1,0 +1,25 @@
+package com.edu.springboot.jdbc;
+
+import java.util.ArrayList;
+import org.apache.ibatis.annotations.Mapper; 
+import com.edu.springboot.jdbc.BoardDTO;  
+
+/*
+컨트롤러에서 Mapper의 특정 메서드를 호출하기 위해 인터페이스에 정의된 추상매서드를 호출하게 된다. 인터페이스의
+위치는 Mapperdml 폴더 하위에 있는 BoardDAO.xml 파일에 정의된 메서드를 호출하게 된다.
+*/
+@Mapper
+public interface IBoardService {
+    // 목록 개수 : 게시물의 개수를 카운트하여 정수로 변환
+    public int getTotalCount();
+    // 목록 가져오기 : 목록에 출력할 게시물을 List형태로 반환 
+    public ArrayList<BoardDTO> listPage();
+    // 작성 : insert 처리
+    public int write(BoardDTO boardDTO);
+    // 열람 : select 처리
+    public BoardDTO view(BoardDTO boardDTO);
+    // 수정 : update 처리
+    public int edit(BoardDTO boardDTO);
+    // 삭제 : delete 처리
+    public int delete(BoardDTO boardDTO);
+}
