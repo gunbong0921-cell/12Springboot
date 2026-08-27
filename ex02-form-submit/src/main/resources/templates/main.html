@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h2>Spring boot 기본형</h2>
+	<ul>
+		<li><a href="/">Root</a></li>
+	</ul>
+	<!-- 요청명을 통한 링크가 아닌 HTML파일에 대한 직접적인 링크라면 해당 파일은 static 경로 하위에 위치해야한다. -->
+	<h2>정적 파일</h2>
+	<ul>
+		<li><a href="./indexS.html">indexS.html</a></li>
+		<!-- 혅 위치에 따라 이미지의 접근방식이 달라지므로 혹은..으로 표현하면된다. -->
+		<li><a href="./sub/subS.html">subS.html</a></li>
+	</ul>
+	
+	<h2>View 매핑(Thymleaf)</h2>
+	<ul>
+		<li><a href="./index.do">indexS.do</a></li>
+		<li><a href="./sub.do">subS.do</a></li>
+	</ul>
+	
+	<h2>폼값 수신 및 바인딩 방법</h2>
+	<ul>
+		<li><a href="form1.do?name=손오공&age=11">request내장객체</a></li>
+		<li><a href="form2.do?name=저팔계&age=22">@RequestParam</a></li>
+		<li><a href="form3/삼장법사/33">경로변수</a></li>
+		<li><a href="form4.do?name=사오정1&age=44">커맨드객체</a></li>
+		<li><a href="form5.do?name=사오정2&age=55">@ModelAttribute</a></li>
+	</ul>
+</body>
+</html>
+

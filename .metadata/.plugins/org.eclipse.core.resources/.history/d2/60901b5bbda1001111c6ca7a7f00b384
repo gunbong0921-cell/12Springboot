@@ -1,0 +1,74 @@
+package com.edu.springboot;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model; // 올바른 Model 패키지
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+
+import com.edu.springboot.jdbc.MemberDAO;
+import com.edu.springboot.jdbc.MemberDTO;
+
+@Controller
+public class MainController {
+
+	// DAO 빈 자동주입 (필드 상단 배치)
+	@Autowired
+	private MemberDAO dao;
+
+	@GetMapping("/")
+	public String main() {
+		return "main";	
+	}
+	
+	// 회원목록
+	@GetMapping("/list.do")
+	public String member1(Model model) {
+		model.addAttribute("memberList", dao.select());
+		return "list";
+	}
+	
+	//회원정보입력1 : 입력페이지 매핑
+	@GetMapping("/regist.do")
+	public String member2() {
+		return "regist";
+	}
+	
+	//회원정보입력2 : insert 쿼리문으로 입력 처리
+	@PostMapping("/regist.do")
+	public String member3(MemberDTO memberDTO) {
+		//전송된 폼값은 DTO객체를 통해 한번에 받ㅇ느 후 인수로 전달한다.
+		int result = dao.insert(memberDTO);
+		//반환값을 통해 성공/실패 판단
+		if(result==1) System.out.println("입력되었습니다.");
+		return "redirect:list.do";
+	}
+	
+	//회원정보수정1 : 기존의 회원레코드 인출
+	@GetMapping("/edit.do")
+	public String member4(MemberDTO memberDTO, Model model) {
+		memberDTO = dao.selectOne(memberDTO);
+		model.addAttribute("dto", memberDTO);
+		return "edit";
+	}
+	
+	//회원정보수정2 : 수정된 레코드 DB 업데이트 (POST 방식 - 폼 제출 처리)
+	@PostMapping("/edit.do")
+	public String member5(MemberDTO memberDTO) {
+		//DAO의 update 메서드를 호출하여 수정 실행
+		int result = dao.update(memberDTO);
+		if (result == 1) {
+			System.out.println("회원정보가 수정되었습니다.");
+		}
+		//수정 완료 후 목록 페이지로 이동
+		return "redirect:/list.do";
+	}	
+	
+	//삭제 처리 : delete 쿼리문으로 삭제 처리
+	@GetMapping("/delete.do")
+	public String member6(MemberDTO memberDTO) {
+		int result = dao.delete(memberDTO);
+		if(result==1) System.out.println("삭제되었습니다.");
+		return "redirect:list.do";
+	}
+}

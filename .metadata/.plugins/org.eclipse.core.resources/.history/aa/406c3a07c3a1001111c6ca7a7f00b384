@@ -1,0 +1,102 @@
+package com.edu.springboot;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.edu.springboot.jdbc.MemberDAO;
+import com.edu.springboot.jdbc.MemberDTO;
+
+@Controller
+public class MainController {
+
+	// DAO 빈 자동주입
+	@Autowired
+	private MemberDAO dao;
+
+	@GetMapping("/")
+	public String main() {
+		return "main";	
+	}
+	
+	// 회원목록
+	@GetMapping("/list.do")
+	public String member1(Model model) {
+		model.addAttribute("memberList", dao.select());
+		return "list";
+	}
+	
+	// 회원정보입력1 : 입력페이지 매핑
+	@GetMapping("/regist.do")
+	public String member2() {
+		return "regist";
+	}
+	
+	// 회원정보입력2 : insert 쿼리문으로 입력 처리
+	@PostMapping("/regist.do")
+	public String member3(MemberDTO memberDTO) {
+		int result = dao.insert(memberDTO);
+		if (result == 1) {
+			System.out.println("입력되었습니다.");
+		}
+		return "redirect:/list.do";
+	}
+	
+	// 회원정보수정1 : 기존의 회원레코드 인출
+	@GetMapping("/edit.do")
+	public String member4(@RequestParam("id") String id, Model model) {
+		// DTO 객체를 생성하여 ID 세팅 후 조회
+		MemberDTO memberDTO = new MemberDTO();
+		memberDTO.setId(id);
+		
+		MemberDTO dto = dao.selectOne(memberDTO);
+		model.addAttribute("dto", dto);
+		return "edit";
+	}
+	
+	// 회원정보수정2 : 수정된 레코드 DB 업데이트 (POST 방식 - 폼 제출 처리)
+	@PostMapping("/edit.do")
+	public String member5(MemberDTO memberDTO) {
+		int result = dao.update(memberDTO);
+		if (result == 1) {
+			System.out.println("회원정보가 수정되었습니다.");
+		}
+		return "redirect:/list.do";
+	}	
+	
+	// [퀴즈 1] confirm 확인 후 동기(GET) 삭제
+	@GetMapping("/delete.do")
+	public String memberDelete(@RequestParam("id") String id) {
+		MemberDTO dto = new MemberDTO();
+		dto.setId(id);
+		dao.delete(dto);
+		return "redirect:/list.do";
+	}
+
+	// [퀴즈 2] confirm 확인 후 fetch 비동기(POST) 삭제
+	@PostMapping("/delete.do")
+	@ResponseBody
+	public Map<String, String> memberDeleteAsync(@RequestParam("id") String id) {
+		Map<String, String> resultMap = new HashMap<>();
+			
+		MemberDTO dto = new MemberDTO();
+		dto.setId(id);
+			
+		int result = dao.delete(dto);
+		if (result == 1) {
+			resultMap.put("status", "success");
+		} 
+		else {
+			resultMap.put("status", "fail");
+		}
+			
+		return resultMap;
+	}
+}

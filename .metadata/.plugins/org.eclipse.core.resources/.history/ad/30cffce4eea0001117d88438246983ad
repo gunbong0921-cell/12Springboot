@@ -1,0 +1,5 @@
+package com.edu.springboot.bean1;
+
+public class Di1Controller {
+
+}

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h2>회원정보수정</h2>	
+	<form action="edit.do" method="post">	
+	<table border="1">
+		<tr>
+			<th>아이디(수정불가)</th>
+			<td><input type="text" name="id"
+				th:value="${dto.id }" readonly /></td>			
+		</tr>
+		<tr>
+			<th>패스워드</th>
+			<td><input type="text" name="pass" th:value="${dto.pass }" /></td>			
+		</tr>
+		<tr>
+			<th>이름</th>
+			<td><input type="text" name="name" th:value="${dto.name }" /></td>			
+		</tr>		
+	</table>
+	<input type="submit" value="전송하기" />
+	</form>
+</body>
+</html>

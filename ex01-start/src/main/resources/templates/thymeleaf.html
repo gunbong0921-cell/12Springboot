@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<!-- 주석1 : 웹브라우저에서 실행 후 소스보기 했을때 보임 -->
+	<!--/* 주석2 : 소스보기를 해도 보이지 않음 */-->
+	<h1 th:text="${title}"></h1>
+	
+	<h2>1.텍스트 출력</h2>
+	<!-- 타임리프의 text속성으로 텍스트 출력. 이때는 태그사이에 내용이 들어가지 않지만, 랜더링시 자동으로 삽입된다. -->
+	<p th:text="${title}"></p>
+	<!-- 대괄호를 2개 붙여서 텍스트를 표현할 수 있다. 이때는 태그사이에 직접 삽입한다. -->
+	<p>[[${title}]]</p>
+	
+	<h2>2.조건문</h2>
+	<!-- if~else문 대신 if, unless 속성을 사용해서 조건문 표현. -->
+	<p th:if="${isAdmin}">관리자입니다</p>
+	<p th:unless="${isAdmin}">일반 사용자입니다</p>
+	
+	<h3>3.반복문</h3>
+	<ul>
+		<!-- 반복문은 확장된 for문 형식으로 크기만큼 반복해서 요소를 순차적으로 인출 -->
+		<li th:each="user : ${users}">이름: [[${user.name}]] / 나이: [[${user.age}]]</li>
+		<!-- users에는 UserDTO객체가 저장되어 있으므로 멤버면수명으로 접근해서 값을 출력할 수 있다. -->
+	</ul>
+	
+	<h2>4.조건 + 반복문 조합</h2>
+	<ul>
+		<li th:each="user : ${users}">[[${user.name}]] - 
+			<span th:if="${user.age >= 20}">성인</span>
+			<span th:unless="${user.age >= 20}">미성년자</span>
+		</li>
+	</ul>
+	
+	<h2>5.링크 처리</h2>
+	<ul>
+		<!-- 기본적인 링크처리는 @와 중괄호를 사용한다. -->
+		<li>
+			<a th:href="@{/}">Root이동</a>
+		</li>	
+		<!-- 경로뒤에 파라미터가 필요한 경우에는 소괄호 내부에 Key=Value형식으로 작성한다. 구분이 필요한 경우
+		컴마를 사용하면된다. 차후 '경로명?Key=Value' -->
+		<li>
+			<a th:href="@{/thymeleaf.do(name='홍길동', age=20)}">
+			파라미터 전달 링크(쿼리스트링 형식으로 렌더링)</a>
+		</li>
+	</ul>
+</body>
+</html>

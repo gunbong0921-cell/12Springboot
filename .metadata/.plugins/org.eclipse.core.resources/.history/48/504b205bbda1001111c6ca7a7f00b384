@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h2>회원목록</h2>
+	<table border="1">
+		<tr>
+			<th>No</th>
+			<th>아이디</th>
+			<th>패스워드</th>
+			<th>이름</th>
+			<th>가입일</th>
+			<th></th>
+		</tr>
+		<tr th:each="row, loop : ${memberList}">
+		    <td th:text="${loop.count}"></td>
+		    <td th:text="${row.id}"></td>
+		    <td th:text="${row.pass}"></td>
+		    <td th:text="${row.name}"></td>
+		    <td th:text="${row.regidate}"></td>
+		    <td>
+		        <a th:href="@{/edit.do(id=${row.id})}">수정</a>
+		        <a th:href="@{/delete.do(id=${row.id})}">삭제1</a>
+		        <a th:href="'javascript:deleteGet(\''+${row.id}+'\');'">삭제2</a>
+		    </td>
+		</tr>
+	</table>
+	<a href="regist.do">회원등록</a>	 
+</body>
+</html>

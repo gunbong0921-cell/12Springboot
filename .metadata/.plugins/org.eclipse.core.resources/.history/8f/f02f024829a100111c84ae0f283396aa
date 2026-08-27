@@ -1,0 +1,42 @@
+package com.edu.springboot.jdbc;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementCreator;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public class MemberDAO {
+
+	@Autowired
+	private JdbcTemplate jdbcTemplate;
+	
+	// 회원목록
+	public List<MemberDTO> select() {
+		String sql = "SELECT * FROM member ORDER BY regidate DESC";
+		return jdbcTemplate.query(sql, new BeanPropertyRowMapper<MemberDTO>(MemberDTO.class));
+	}
+	
+	// 회원입력
+	public int insert(MemberDTO memberDTO) {
+		int result = jdbcTemplate.update(new PreparedStatementCreator() {
+			
+			@Override
+			public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
+				String sql = "INSERT INTO member (id, pass, name) VALUES (?, ?, ?)";
+				PreparedStatement psmt = con.prepareStatement(sql);
+				psmt.setString(1, memberDTO.getId());
+				psmt.setString(2, memberDTO.getPass());
+				psmt.setString(3, memberDTO.getName());
+				return psmt;
+			}
+		});
+		return result;
+	}
+}

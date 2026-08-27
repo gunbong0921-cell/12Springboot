@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>회원 목록</title>
+<script>
+// [퀴즈 1] confirm 확인 후 동기(GET) 삭제
+function deleteGet(id) {
+    if (confirm("정말로 삭제하시겠습니까? (Quiz 1 - GET)")) {
+        location.href = "/delete.do?id=" + id;
+    }
+}
+
+// [퀴즈 2] confirm 확인 후 fetch 비동기(POST) 삭제
+function deletePost(id) {
+    if (confirm("정말로 삭제하시겠습니까? (Quiz 2 - POST Fetch)")) {
+        const params = new URLSearchParams();
+        params.append("id", id);
+
+        fetch("/delete.do", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: params
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === "success") {
+                alert("삭제되었습니다.");
+                location.reload();
+            } 
+            else {
+                alert("삭제에 실패했습니다.");
+            }
+        })
+        .catch(error => {
+            console.error("Error:", error);
+            alert("처리 중 오류가 발생했습니다.");
+        });
+    }
+}
+</script>
+</head>
+<body>
+	<h2>회원목록</h2>
+	<table border="1">
+		<tr>
+			<th>No</th>
+			<th>아이디</th>
+			<th>패스워드</th>
+			<th>이름</th>
+			<th>가입일</th>
+			<th>관리</th>
+		</tr>
+		<tr th:each="row, loop : ${memberList}">
+		    <td th:text="${loop.count}"></td>
+		    <td th:text="${row.id}"></td>
+		    <td th:text="${row.pass}"></td>
+		    <td th:text="${row.name}"></td>
+		    <td th:text="${row.regidate}"></td>
+		    <td>
+		        <a th:href="@{/edit.do(id=${row.id})}">수정</a> | 
+		        <a th:href="|javascript:deleteGet('${row.id}')|">삭제1(Quiz1)</a> | 
+		        <a th:href="|javascript:deletePost('${row.id}')|">삭제2(Quiz2)</a>
+		    </td>
+		</tr>
+	</table>
+	<br>
+	<a th:href="@{/regist.do}">회원등록</a>	 
+</body>
+</html>

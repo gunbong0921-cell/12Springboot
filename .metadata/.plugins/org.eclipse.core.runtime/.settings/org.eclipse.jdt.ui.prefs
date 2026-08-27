@@ -1,0 +1,14 @@
+content_assist_autoactivation_triggers_java=.abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_
+content_assist_category_order=org.eclipse.jdt.ui.templateProposalCategory\:0\u0000org.eclipse.jdt.ui.swtProposalCategory\:1\u0000org.eclipse.jdt.ui.javaNoTypeProposalCategory\:65537\u0000org.eclipse.jdt.ui.javaChainProposalCategory\:3\u0000org.eclipse.jdt.ui.javaTypeProposalCategory\:65539\u0000org.eclipse.jdt.ui.textProposalCategory\:65540\u0000org.eclipse.jdt.ui.javaAllProposalCategory\:6\u0000org.eclipse.jdt.ui.javaPostfixProposalCategory\:65542\u0000org.eclipse.pde.api.tools.ui.apitools_proposal_category\:8\u0000org.eclipse.lsp4e.jdt.ls-based-java-completion-computer\:9\u0000
+content_assist_lru_history=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?><history maxLHS\="100" maxRHS\="10"><lhs name\="com.edu.springboot.bean1.Person"><rhs name\="com.edu.springboot.bean1.Person"/></lhs><lhs name\="com.edu.springboot.bean1.Notebook"><rhs name\="com.edu.springboot.bean1.Notebook"/></lhs><lhs name\="org.springframework.jdbc.core.RowMapper"><rhs name\="org.springframework.jdbc.core.BeanPropertyRowMapper"/></lhs></history>
+content_assist_number_of_computers=14
+content_assist_proposals_background=255,255,255
+content_assist_proposals_foreground=0,0,0
+eclipse.preferences.version=1
+org.eclipse.jdt.internal.ui.navigator.layout=2
+org.eclipse.jdt.internal.ui.navigator.librariesnode=true
+org.eclipse.jdt.ui.formatterprofiles.version=23
+spelling_locale_initialized=true
+typefilter_migrated_2=true
+useAnnotationsPrefPage=true
+useQuickDiffPrefPage=true

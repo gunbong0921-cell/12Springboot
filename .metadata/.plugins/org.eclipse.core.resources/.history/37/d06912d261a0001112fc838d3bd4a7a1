@@ -1,0 +1,59 @@
+package com.edu.springboot;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model; // Correct import
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import jakarta.servlet.http.HttpServletRequest;
+
+@Controller
+public class MainController {
+	
+	// root 경로에 대한 매핑 
+	@GetMapping("/")
+	public String main() {
+		return "main";
+	}
+	
+	// 요청시 templates 하위의 indexT.html 파일 렌더링
+	@GetMapping("/index.do")
+	public String index() {
+		return "indexT";
+	}
+	
+	// 하위 경로가 필요한 경우 sub/와 같이 작성 가능 
+	@GetMapping("/sub.do")
+	public String sub() {
+		return "sub/subT";
+	}
+	
+	@GetMapping("/form1.do")
+	public String form1(HttpServletRequest httpServletRequest, Model model) {
+		String name = httpServletRequest.getParameter("name");
+		String age = httpServletRequest.getParameter("age");
+		model.addAttribute("name", name);
+		model.addAttribute("age", age);
+		return "form/submit1";
+	}
+	
+	@GetMapping("/form2.do")
+	public String form2(Model model,
+			@RequestParam("name") String name,
+			@RequestParam(value = "age", required = false, defaultValue = "99") String age) {
+		model.addAttribute("name", name);
+		model.addAttribute("age", age);
+		return "form/submit3";
+	}
+	
+	@GetMapping("/form4.do")
+	public String form4(PersonDTO personDTO) {
+		return "form/submit4";
+	}
+	
+	@GetMapping("/form5.do")
+	public String form5(@ModelAttribute("P") PersonDTO personDTO) {
+		return "form/submit5";
+	}
+}
