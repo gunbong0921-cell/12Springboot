@@ -14,9 +14,9 @@ import com.edu.springboot.jdbc.BoardDTO;
 */
 @Mapper
 public interface IBoardService {
-    // 목록 1 : 커맨드 객체로 모든 폼값을 전달받는다.
+    // 목록 개수 : 게시물의 개수를 카운트하여 정수로 변환
     public int getTotalCount(ParameterDTO parameterDTO);
-    // 목록 2 : 목록1과 동일 
+    // 목록 가져오기 : 목록에 출력할 게시물을 List형태로 반환 
     public ArrayList<BoardDTO> listPage(ParameterDTO parameterDTO);
     // 작성 : request 내장객체로 받은 후 param1 ~3
     public int write(String name, String title, String content);

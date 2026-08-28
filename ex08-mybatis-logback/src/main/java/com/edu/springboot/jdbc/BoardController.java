@@ -24,7 +24,6 @@ public class BoardController {
 	
 	//마이바티스로 제작한 게시판 목록 출력
 	@GetMapping("/list.do")
-	//검색에 관련된 파라미터는 DTO를 통해 한번에 전달받는다. 
 	public String boardList(Model model, ParameterDTO parameterDTO) {
 		int totalCount = dao.getTotalCount(parameterDTO);
 		model.addAttribute("totalCount", totalCount);

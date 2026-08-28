@@ -7,27 +7,11 @@
 
 <mapper namespace="com.edu.springboot.jdbc.IBoardService">
 
-    <!-- 목록 : 게시물 개수 카운트. 검색어 관련 파라미터를 저장한 ParemeterDTO를 통해 폼값을 전달받는다. -->
     <select id="getTotalCount" resultType="int"
         parameterType="com.edu.springboot.jdbc.ParameterDTO">
         SELECT COUNT(*) FROM myboard
-        <!-- where태그는 if태그의 조건에 따라 동적으로 'where'을 추가한다. -->
         <where>
-            <!-- if 태그의 조건은 test에 추가되고, 검색어가 있는 경우에 하위 쿼리문을 동적으로 추가한다. -->
             <if test="searchKeyword != null and searchKeyword != ''">
-                <!-- 
-                searchField의 크기만큼 반복해서 하위 쿼리문을 추가한다.
-                item : 컬렉션에서 순차적으로 인출한 값
-                open : 반복되는 쿼리문의 시작 부분
-                close : 마지막 부분
-                separator :반복 쿼리문 사이에 들어갈 구분자 
-
-                ex) 제목과 내용을 체크하고 '이순신'을 입력 후 검색한다면..
-                => (
-                    title like '%이순신%' or content like '%이순신%'
-                   )
-                    이와 같은 쿼리문을 동적으로 생성한다. 
-                 -->
                 <foreach collection="searchField" item="sfield" open="(" close=")" separator="or">
                     ${sfield} LIKE '%' || #{searchKeyword} || '%'
                 </foreach>
@@ -38,7 +22,6 @@
     <select id="listPage" resultType="com.edu.springboot.jdbc.BoardDTO"
         parameterType="com.edu.springboot.jdbc.ParameterDTO">
         SELECT * FROM myboard
-        <!-- where태그 대신 if 태그 내부에 where을 작성. 결과는 동일함. -->
         <if test="searchKeyword != null and searchKeyword.trim() != ''">
             WHERE 
             <foreach collection="searchField" item="sfield" open="(" close=")" separator="or">

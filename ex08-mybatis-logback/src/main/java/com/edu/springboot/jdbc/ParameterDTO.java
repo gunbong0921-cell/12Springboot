@@ -5,12 +5,9 @@ import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 
-/*
-테이블관느 무관하게 검색에 관련된 파라미터만 한번에 받아 전달하는 용도로 생성한 DTO클래스 */
 @Getter
 @Setter
 public class ParameterDTO {
-  //체크박스는 2개이상 선택 가능하므로 List로 선언 
   private List<String> searchField;
   private String searchKeyword;
 }
