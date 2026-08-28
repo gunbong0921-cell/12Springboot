@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- MyBatis 매퍼를 만들기 위한 Doctype 설정 -->
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.edu.springboot.jdbc.IBoardService">
+    <!-- 
+    목록1 : 게시물의 개수를 그룹함수인 count()를 이용해서 카운트 한후 정수형식으로 반환한다.
+        id속성 : 컨트롤러에서 해당 쿼리문을 실행하기위해 호출하는 함수의 이름 
+        resultType속성 : 쿼리문을 실행한 후 반환타입을 명시한다. 
+    -->
+    <select id="getTotalCount" resultType="int">
+        SELECT COUNT(*) FROM myboard
+    </select>
+    <!-- 
+    목록2: 실제 출력할 게시물을 내림차순으로 정렬한 후 인출 
+        인출된 레코드는 순서대로 DTO에 저장한 후 List로 추가해서 반환하게 된다. 따라서 listPage()의
+        반환타입은 ArrayList<BoardDTO> 형태로 지정한다. 
+     -->
+    <select id="listPage" resultType="com.edu.springboot.jdbc.BoardDTO">
+        SELECT * FROM myboard ORDER BY idx DESC
+    </select>
+    <!-- 열람하기(내용보기) : 파라미터는 @Param을 통해 받은 후 매퍼로 전달 -->
+    <select id="view" resultType="com.edu.springboot.jdbc.BoardDTO">
+        SELECT * FROM myboard WHERE idx = #{_idx}
+    </select>
+    <!-- 조회수 증가 : 상세보기 진입 시 visitcount를 1 증가시킨다. -->
+    <update id="visitCount" parameterType="com.edu.springboot.jdbc.BoardDTO">
+        UPDATE myboard SET visitcount = visitcount + 1 WHERE idx = #{idx}
+    </update>
+    <!-- 게시물 작성 : 파라미터는 전달되는 순서대로 param1 ~ paramN 사용 -->
+    <insert id="write">
+        INSERT INTO myboard (idx, name, title, content)
+        VALUES (seq_board_num.NEXTVAL, #{param1}, #{param2}, #{param3})
+    </insert>
+    <!-- 수정처리 : 파라미터는 Map을 통해 받은 후 매퍼로 전달. 따라서 parameterType은 map으로 지정한다. -->
+    <update id="edit" parameterType="map">
+        UPDATE myboard SET name = #{name}, title = #{title}, content = #{content} WHERE idx = #{idx}
+    </update>
+    <!-- 삭제처리 : 파라미터는 전달되는 순서대로 0 ~ N 사용(배열의 인덱스처럼 사용) -->
+    <delete id="delete">
+        DELETE FROM myboard WHERE idx = #{0}
+    </delete>
+</mapper>
+
