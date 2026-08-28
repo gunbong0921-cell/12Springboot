@@ -28,6 +28,10 @@
             resultType="com.edu.springboot.jdbc.BoardDTO">
         SELECT * FROM myboard WHERE idx = #{idx}
     </select>
+    <!-- 조회수 증가 : 상세보기 진입 시 visitcount를 1 증가시킨다. -->
+    <update id="visitCount" parameterType="com.edu.springboot.jdbc.BoardDTO">
+        UPDATE myboard SET visitcount = visitcount + 1 WHERE idx = #{idx}
+    </update>
     <!-- 게시물 작성
     parameterType속성 : 전달된 폼값을 저장할 DTO 객체의 타입을 명시한다. 어떤 타입의 객체를 사용할지 지정한다.  
         DTO 외에도 List, Map 등 다양한 타입을 사용할 수 있다. -->

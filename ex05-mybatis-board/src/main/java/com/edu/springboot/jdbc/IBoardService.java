@@ -18,6 +18,8 @@ public interface IBoardService {
     public int write(BoardDTO boardDTO);
     // 열람 : select 처리
     public BoardDTO view(BoardDTO boardDTO);
+    // 조회수 증가 : update 처리
+    public int visitCount(BoardDTO boardDTO);
     // 수정 : update 처리
     public int edit(BoardDTO boardDTO);
     // 삭제 : delete 처리
