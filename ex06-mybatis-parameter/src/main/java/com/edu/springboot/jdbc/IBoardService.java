@@ -1,7 +1,11 @@
 package com.edu.springboot.jdbc;
 
 import java.util.ArrayList;
-import org.apache.ibatis.annotations.Mapper; 
+import java.util.Map;
+
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
 import com.edu.springboot.jdbc.BoardDTO;  
 
 /*
@@ -14,14 +18,12 @@ public interface IBoardService {
     public int getTotalCount();
     // 목록 가져오기 : 목록에 출력할 게시물을 List형태로 반환 
     public ArrayList<BoardDTO> listPage();
-    // 작성 : insert 처리
-    public int write(BoardDTO boardDTO);
-    // 열람 : select 처리
-    public BoardDTO view(BoardDTO boardDTO);
-    // 조회수 증가 : update 처리
-    public int visitCount(BoardDTO boardDTO);
-    // 수정 : update 처리
-    public int edit(BoardDTO boardDTO);
-    // 삭제 : delete 처리
-    public int delete(BoardDTO boardDTO);
+    // 작성 : request 내장객체로 받은 후 param1 ~3
+    public int write(String name, String title, String content);
+    // 열람 : @Parma 어노테이션
+    public BoardDTO view(@Param("_idx") String idx);
+    // 수정 : Map
+    public int edit(Map<String, Object> map);
+    // 삭제 : 인덱스사용(0 ~ 2)
+    public int delete(String idx);
 }

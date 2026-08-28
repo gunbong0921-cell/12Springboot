@@ -1,6 +1,8 @@
 package com.edu.springboot.jdbc;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -35,62 +37,62 @@ public class BoardController {
 		return "list";
 	}
 	
-	// 작성 매핑 1 : 매핑을 단순하게 페이지 이동만 처리
+	// 작성 매핑 1 : 쓰기페이지 매핑
 	@GetMapping("/write.do")
-	public String boardWrite() {
+	public String boardWriteGet(Model model) {
 		return "write";
 	}
 	
-	// 작성 매핑 2 : 전송된 폼값을 폼값을 수신한 후 오버로딩한 메서드 추가
+	// 작성 매핑 2 : 폼값을 받아 insert 처리
 	@PostMapping("/write.do")
-	public String boardWritePost(BoardDTO boardDTO) {
-		int result = dao.write(boardDTO);
-    //전송된 폼값은 한번에 받아서 Mapper로 전달 
+	public String boardWritePost(Model model, BoardDTO boardDTO) {
+		//이름, 제목, 내용을 개별적으로 전달
+		int result = dao.write(boardDTO.getName(), boardDTO.getTitle(), boardDTO.getContent());
 		System.out.println("글쓰기결과:" + result);
-		//작성이 완료되면 목록으로 이동 
+		
 		return "redirect:list.do";
 	}
 	
 	// 열람
 	@GetMapping("/view.do")
 	public String boardView(Model model, BoardDTO boardDTO) {
-		//상세보기 진입 시 조회수 1 증가 (DB에 바로 반영)
-		int visitResult = dao.visitCount(boardDTO);
-		System.out.println("조회수증가결과:" + visitResult);
-		//열람을 위해 전달되는 일련번호를 인수로 전달
-		boardDTO = dao.view(boardDTO);
-		//내용 작성시 언테키로 입력된 부분은 <br>태그로 줄바꿈 처리
+		boardDTO = dao.view(boardDTO.getIdx());
+		boardDTO.setContent(boardDTO.getContent().replace("\r\n", "<br>"));
 		model.addAttribute("boardDTO", boardDTO);
-		//View로 전달 
+
 		return "view";
 	}
 	
 	// 수정 1 : 수정폼에 기존내용 인출하기
 	@GetMapping("/edit.do")
-	public String boardEdit(Model model, BoardDTO boardDTO) {
-		//열람에서 사용했던 매서드를 이용해서 레코드 인출
-		boardDTO = dao.view(boardDTO);
-		//Model객체에 저장 후 View 로 전달 
+	public String boardEditGet(Model model, BoardDTO boardDTO) {
+		//일련번호를 개별적으로 전달 
+		boardDTO = dao.view(boardDTO.getIdx());
 		model.addAttribute("boardDTO", boardDTO);
 		
 		return "edit";
 	}
 	
-	// 수정 2 : 처리
+	// 수정 2 : 수정처리
 	@PostMapping("/edit.do")
 	public String boardEditPost(BoardDTO boardDTO) {
-		//전송된 폼값을 한번에 받은 후 Mapper의 함수 호출
-		int result = dao.edit(boardDTO);
+		//파라미터 저장을 위한 Map 생성
+		Map<String, Object> paramMap = new HashMap<>();
+		//파라미터 담기
+		paramMap.put("name", boardDTO.getName());
+		paramMap.put("idx", boardDTO.getIdx());
+		paramMap.put("title", boardDTO.getTitle());
+		paramMap.put("content", boardDTO.getContent());
+
+		int result = dao.edit(paramMap);
 		System.out.println("글수정결과:" + result);
-		//수정이 완료되면 열람 페이지로 이동 
 		return "redirect:view.do?idx=" + boardDTO.getIdx();
 	}
 	
-	// 삭제
+	// 삭제처리
 	@PostMapping("/delete.do")
 	public String boardDeletePost(BoardDTO boardDTO) {
-		//삭제를 위한 일련번호를 DTO로 받은 후 매퍼 호출 
-		int result = dao.delete(boardDTO);
+		int result = dao.delete(boardDTO.getIdx());
 		System.out.println("글삭제결과:" + result);
 		
 		return "redirect:list.do";
