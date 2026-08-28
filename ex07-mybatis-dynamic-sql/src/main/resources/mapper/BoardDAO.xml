@@ -6,21 +6,29 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.edu.springboot.jdbc.IBoardService">
-    <!-- 
-    목록1 : 게시물의 개수를 그룹함수인 count()를 이용해서 카운트 한후 정수형식으로 반환한다.
-        id속성 : 컨트롤러에서 해당 쿼리문을 실행하기위해 호출하는 함수의 이름 
-        resultType속성 : 쿼리문을 실행한 후 반환타입을 명시한다. 
-    -->
-    <select id="getTotalCount" resultType="int">
+
+    <select id="getTotalCount" resultType="int"
+        parameterType="com.edu.springboot.jdbc.ParameterDTO">
         SELECT COUNT(*) FROM myboard
+        <where>
+            <if test="searchKeyword != null and searchKeyword != ''">
+                <foreach collection="searchField" item="sfield" open="(" close=")" separator="or">
+                    ${sfield} LIKE '%' || #{searchKeyword} || '%'
+                </foreach>
+            </if>
+        </where>
     </select>
-    <!-- 
-    목록2: 실제 출력할 게시물을 내림차순으로 정렬한 후 인출 
-        인출된 레코드는 순서대로 DTO에 저장한 후 List로 추가해서 반환하게 된다. 따라서 listPage()의
-        반환타입은 ArrayList<BoardDTO> 형태로 지정한다. 
-     -->
-    <select id="listPage" resultType="com.edu.springboot.jdbc.BoardDTO">
-        SELECT * FROM myboard ORDER BY idx DESC
+   
+    <select id="listPage" resultType="com.edu.springboot.jdbc.BoardDTO"
+        parameterType="com.edu.springboot.jdbc.ParameterDTO">
+        SELECT * FROM myboard
+        <if test="searchKeyword != null and searchKeyword.trim() != ''">
+            WHERE 
+            <foreach collection="searchField" item="sfield" open="(" close=")" separator="or">
+                ${sfield} LIKE '%' || #{searchKeyword} || '%'
+            </foreach>
+        </if>
+        ORDER BY idx DESC
     </select>
     <!-- 열람하기(내용보기) : 파라미터는 @Param을 통해 받은 후 매퍼로 전달 -->
     <select id="view" resultType="com.edu.springboot.jdbc.BoardDTO">

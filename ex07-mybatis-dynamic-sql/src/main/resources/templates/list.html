@@ -7,6 +7,20 @@
 </head>
 <body>
   <h2>게시판 목록</h2>
+  <!-- 검색 폼 -->
+  <form method="get">
+    <table border="1" width="90%">
+      <tr>
+        <td align="center">
+          <input type="checkbox" name="searchField" value="title"> 제목
+          <input type="checkbox" name="searchField" value="content"> 내용
+          <input type="checkbox" name="searchField" value="name"> 작성자
+          <input type="text" name="searchKeyword" >
+          <input type="submit" value="검색하기">
+        </td>
+      </tr>
+    </table>
+  </form> 
   <table border="1" width="90%">
     <tr>
       <th width="10%">번호</th>

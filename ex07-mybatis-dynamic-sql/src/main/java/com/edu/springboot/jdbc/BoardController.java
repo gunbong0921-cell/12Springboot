@@ -22,18 +22,15 @@ public class BoardController {
 	@Autowired
 	IBoardService dao;
 	
-	//게시판 목록. /myboard의 하위 경로 매핑. 
+	//마이바티스로 제작한 게시판 목록 출력
 	@GetMapping("/list.do")
-	public String boardList(Model model) {
-    //게시물의 전체 개수 카운트 
-		int totalCount = dao.getTotalCount();
+	public String boardList(Model model, ParameterDTO parameterDTO) {
+		int totalCount = dao.getTotalCount(parameterDTO);
 		model.addAttribute("totalCount", totalCount);
 		
-    //현재 페이지에 출력할 게시물 인출 
-		ArrayList<BoardDTO> lists = dao.listPage();
+		ArrayList<BoardDTO> lists = dao.listPage(parameterDTO);
 		model.addAttribute("lists", lists);
 		
-    //View로 전달 
 		return "list";
 	}
 	
