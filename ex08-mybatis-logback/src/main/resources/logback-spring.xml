@@ -3,11 +3,21 @@
 <configuration>
     <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
+            <!-- Windows 콘솔(cmd) 기본 코드페이지 CP949와 맞춤 -->
+            <charset>MS949</charset>
             <Pattern>[%d{yyyy-MM-dd HH:mm:ss}:%-3relative] [%thread] %-5level %logger{36} - %msg%n</Pattern>
         </encoder>
     </appender>
 
     <logger name="com.edu.springboot" level="debug" />
+
+    <!-- log4jdbc 관련 로그 설정 -->
+    <logger name="jdbc" level="OFF" />
+    <logger name="jdbc.sqlonly" level="OFF" />
+    <logger name="jdbc.sqltiming" level="DEBUG" />
+    <logger name="jdbc.resultset" level="OFF" />
+    <logger name="jdbc.resultsettable" level="DEBUG" />
+    <logger name="jdbc.connection" level="OFF" />
 
     <root level="info">
         <appender-ref ref="console" />
