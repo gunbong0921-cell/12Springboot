@@ -22,7 +22,8 @@
     <select id="listPage" resultType="com.edu.springboot.jdbc.BoardDTO">
         SELECT * FROM myboard ORDER BY idx DESC
     </select>
-
+    <!-- 열람하기 : 게시물 열람을 위해 전달되는 일련번호(idx)를 DTO를 통해 전달받고, 인출된 레코드 역시
+        DTO에 저장한 후 반환하게 된다. -->
     <select id="view" parameterType="com.edu.springboot.jdbc.BoardDTO"
             resultType="com.edu.springboot.jdbc.BoardDTO">
         SELECT * FROM myboard WHERE idx = #{idx}

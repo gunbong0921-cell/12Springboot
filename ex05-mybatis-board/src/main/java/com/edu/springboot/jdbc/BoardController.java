@@ -54,9 +54,11 @@ public class BoardController {
 	// 열람
 	@GetMapping("/view.do")
 	public String boardView(Model model, BoardDTO boardDTO) {
+		//열람을 위해 전달되는 일련번호를 인수로 전달
 		boardDTO = dao.view(boardDTO);
+		//내용 작성시 언테키로 입력된 부분은 <br>태그로 줄바꿈 처리
 		model.addAttribute("boardDTO", boardDTO);
-		
+		//View로 전달 
 		return "view";
 	}
 	

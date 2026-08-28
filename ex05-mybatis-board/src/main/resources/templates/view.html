@@ -22,6 +22,7 @@ function deletePost() {
 	        <col width="15%"/> <col width="*"/>
 	    </colgroup>
 	    <!-- 게시글 정보 -->
+			 <!-- 번호, 작성자 처럼 한줄짜리 텍스트는 text속성으로 출력 -->
 	    <tr>
 	        <td>번호</td>
 	        <td th:text="${boardDTO.idx}"></td>
@@ -40,6 +41,8 @@ function deletePost() {
 	    </tr>
 	    <tr>
 	        <td>내용</td>
+					<!-- <br>과 같이 HTML 태그가 포함딘 경우에는 utext속성으로 출력해야한다. text 속성의 경우에는
+					 HTML캐그가 해석되지 않고 문자그대로 화면에 표시된다. -->
 	        <td colspan="3" height="100" th:utext="${boardDTO.content}"></td>
 	    </tr>
 	    <!-- 하단 메뉴(버튼) -->
