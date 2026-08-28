@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- MyBatis 매퍼를 만들기 위한 Doctype 설정 -->
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.edu.springboot.jdbc.IBoardService">
+    <!-- 
+    목록1 : 게시물의 개수를 그룹함수인 count()를 이용해서 카운트 한후 정수형식으로 반환한다.
+        id속성 : 컨트롤러에서 해당 쿼리문을 실행하기위해 호출하는 함수의 이름 
+        resultType속성 : 쿼리문을 실행한 후 반환타입을 명시한다. 
+    -->
+    <select id="getTotalCount" resultType="int">
+        SELECT COUNT(*) FROM myboard
+    </select>
+    <!-- 
+    목록2: 실제 출력할 게시물을 내림차순으로 정렬한 후 인출 
+        인출된 레코드는 순서대로 DTO에 저장한 후 List로 추가해서 반환하게 된다. 따라서 listPage()의
+        반환타입은 ArrayList<BoardDTO> 형태로 지정한다. 
+     -->
+    <select id="listPage" resultType="com.edu.springboot.jdbc.BoardDTO">
+        SELECT * FROM myboard ORDER BY idx DESC
+    </select>
+    <!-- 열람하기 : 게시물 열람을 위해 전달되는 일련번호(idx)를 DTO를 통해 전달받고, 인출된 레코드 역시
+        DTO에 저장한 후 반환하게 된다. -->
+    <select id="view" parameterType="com.edu.springboot.jdbc.BoardDTO"
+            resultType="com.edu.springboot.jdbc.BoardDTO">
+        SELECT * FROM myboard WHERE idx = #{idx}
+    </select>
+    <!-- 조회수 증가 : 상세보기 진입 시 visitcount를 1 증가시킨다. -->
+    <update id="visitCount" parameterType="com.edu.springboot.jdbc.BoardDTO">
+        UPDATE myboard SET visitcount = visitcount + 1 WHERE idx = #{idx}
+    </update>
+    <!-- 게시물 작성
+    parameterType속성 : 전달된 폼값을 저장할 DTO 객체의 타입을 명시한다. 어떤 타입의 객체를 사용할지 지정한다.  
+        DTO 외에도 List, Map 등 다양한 타입을 사용할 수 있다. -->
+    <insert id="write" parameterType="com.edu.springboot.jdbc.BoardDTO">
+    <!-- 일련번호(idx)는 시퀀스 객체를 이용해서 자동으로 증가되도록 설정되어 있다. 나머지 값들은 DTO의 멤버변수명을
+    그대로 사용한다. 그러면 getter를 통해 값이 설정된다. -->
+        INSERT INTO myboard (idx, name, title, content)
+        VALUES (seq_board_num.NEXTVAL, #{name}, #{title}, #{content})
+    </insert>
+
+    <update id="edit" parameterType="com.edu.springboot.jdbc.BoardDTO">
+        UPDATE myboard SET name = #{name}, title = #{title}, content = #{content} WHERE idx = #{idx}
+    </update>
+
+    <delete id="delete" parameterType="com.edu.springboot.jdbc.BoardDTO">
+        DELETE FROM myboard WHERE idx = #{idx}
+    </delete>
+</mapper>
+

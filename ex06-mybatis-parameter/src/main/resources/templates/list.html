@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Insert title here</title>
+</head>
+<body>
+  <h2>게시판 목록</h2>
+  <table border="1" width="90%">
+    <tr>
+      <th width="10%">번호</th>
+      <th width="*">제목</th>
+      <th width="15%">작성자</th>
+      <th width="10%">조회수</th>
+      <th width="15%">작성일</th>
+    </tr>
+    <!-- 게시물이 없는 경우 -->
+    <tr th:if="${#lists.isEmpty(lists)}">
+      <td colspan="5" align="center">등록된 게시물이 없습니다.</td>
+    </tr>
+    <!-- 게시물이 있는 경우 -->
+    <tr th:each="row : ${lists}" align="center" th:unless="${#lists.isEmpty(lists)}">
+      <td th:text="${row.idx}"></td>
+      <td align="left">
+        <a th:href="@{/myboard/view.do(idx=${row.idx})}" th:text="${row.title}"></a>
+      </td>
+      <td th:text="${row.name}"></td>
+      <td th:text="${row.visitcount}"></td>
+      <td th:text="${row.postdate}"></td>
+    </tr>
+  </table>
+  <table border="1" width="90%">
+    <tr align="center">
+      <td></td>
+      <td width="100%"><button type="button" onclick="location.href='./write.do';">글쓰기</button></td>
+    </tr>
+  </table>
+</body>
+</html>
