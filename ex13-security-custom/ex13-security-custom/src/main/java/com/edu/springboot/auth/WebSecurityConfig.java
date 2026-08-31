@@ -42,9 +42,34 @@ public class WebSecurityConfig {
     );
 
     /*
-    로그인과 로그아웃은 별도의 설정없이, 시큐리티가 제공하는 기본 설정을 그대로 사용한다. */
-    http.formLogin((formLogin) -> formLogin.permitAll());
-    http.logout((logout) -> logout.permitAll());
+    로그인 페이지 UI커스텀을 위한 설정
+    .loginPage : 로그인 페이지의 요청명
+    .loginProcessingUrl : 로그인 폼에서 submit했을때 action에 지정된 경로 및 요청명
+    .failureUrl : 로그인에 실패한 경우 이동할 요청명
+    .usernameParameter : 아이디 입력상자의 name 속성값
+    .passwordParameter : 패스워드의 name 속성값 
+    */
+    http.formLogin((formLogin) -> formLogin
+      .loginPage("/myLogin.do") //default : /login
+      .loginProcessingUrl("/myLoginAction.do")
+      .failureUrl("/myError.do") //default : /login?error
+      .usernameParameter("my_id") //default : username
+      .passwordParameter("my_pass") //default : password
+      .permitAll());
+
+    /*
+    로그아웃 처리에 대한 커스텀
+    .logoutUrl : 로그아수 링크 설정
+    .logoutSuccessUrl : 로그아웃 성공시 이동할 페이지의 요청명 
+    */  
+    http.logout((logout) -> logout
+      .logoutUrl("/myLogout.do") //default : /logout
+      .logoutSuccessUrl("/")
+      .permitAll());
+
+    //권한이 부족한 경우 이동할 페이지의 요청명 설정   
+    http.exceptionHandling((exceptionHandling) -> exceptionHandling
+      .accessDeniedPage("/denied.do"));
 
     return http.build();
   }
