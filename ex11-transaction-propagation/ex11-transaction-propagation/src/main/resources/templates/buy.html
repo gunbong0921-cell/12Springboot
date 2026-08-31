@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h2>티켓 구매하기</h2>
+	<!-- 티켓 구매는 post방식으로 전송 -->
+	<form action="buyTicket.do" method="post">
+	<table border="1">
+		<tr>
+			<th>아이디</th>
+			<td><input type="text" name="userid" value="" /></td>			
+		</tr>
+		<tr>
+			<th>수량</th>
+			<td>
+				<!-- forEach태그를 이용해서 <option>태그를 반복해서 추가 -->
+				<select name="t_count">
+					<option th:each="num : ${#numbers.sequence(1,10)}"
+		                    th:value="${num}"
+		                    th:text="${num} + '장'"></option>
+				</select>
+			</td>			
+		</tr>
+		<tr>
+			<th>에러발생</th>
+			<td>
+				<input type="checkbox" name="err_flag" value="1" />
+					티켓구매에서 예외발생
+				<input type="checkbox" name="err_flag" value="2" />
+					회원입력에서 예외발생
+			</td>			
+		</tr>
+	</table>
+	<input type="submit" value="전송하기" />
+	</form>
+</body>
+</html>
+

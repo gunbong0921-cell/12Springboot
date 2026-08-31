@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h2>티켓 구매 성공</h2>
+	아이디 : <span th:text="${ticketDTO.userid}"></span><br/>
+   구매수 : <span th:text="${ticketDTO.t_count}"></span><br/>
+   결제금액 : [[${payDTO.amount}]]<br/>
+	<a href="buyTicket.do">티켓구매 바로가기</a>
+</body>
+</html>
+
+

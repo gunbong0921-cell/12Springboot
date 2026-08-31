@@ -1,0 +1,16 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Spring Boot-Ex09TransactionManagerApplication<ex11-transaction-propagation>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/ex11-transaction-propagation",
+      "mainClass": "com.edu.spingboot.Ex09TransactionManagerApplication",
+      "projectName": "ex11-transaction-propagation",
+      "args": "--server.port=8282",
+      "console": "integratedTerminal",
+      "envFile": "${workspaceFolder}/.env"
+    }
+  ]
+}
