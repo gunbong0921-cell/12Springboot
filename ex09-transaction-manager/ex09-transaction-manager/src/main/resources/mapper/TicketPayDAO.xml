@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 컨트롤러에서 호출하기 위해 인터페이스 매퍼를 namespace 속성으로 설정한다. import
+대신 패키지의 풀경로를 이용해서 작성한다. -->
+<mapper namespace="com.edu.spingboot.jdbc.ITicketService">
+  <!-- 티켓 구매 금액 입력. 금액의 경우에는 별도의 제약조건이 없는 상태로 테이블 생성. -->
+  <insert id="insertPay" parameterType="com.edu.spingboot.jdbc.PayDTO">
+    INSERT INTO transaction_pay (userid, amount) VALUES (#{userid}, #{amount})
+  </insert>
+  <!-- 티켓 매수 입력. check 제약조건으로 5장까지만 입력할 수 있음. -->
+  <insert id="insertTicket" parameterType="com.edu.spingboot.jdbc.TicketDTO">
+    INSERT INTO transaction_ticket (userid, t_count) VALUES (#{userid}, #{t_count})
+  </insert>
+</mapper>
