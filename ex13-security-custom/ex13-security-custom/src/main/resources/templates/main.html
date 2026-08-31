@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<!-- 정적리소스인 js 와 css파일을 링크 형식으로 현재 문서에 포함 -->
+<script src="./js/commons.js"></script>
+<link rel="stylesheet" href="./css/main.css" />
+</head>
+<body>
+	<h2>Spring Security 기본</h2>
+  <!-- 
+  타임리프의 Insert 속성으로 공통적으로 사용할 UI를 포함시킬 수 있다. 
+  앞부분은 파일의 경로 :: 뒷부분은 fragment속성으로 지정한 이름이 들어간다. 
+  -->
+	<div th:insert="~{common/link :: commonLinks}"></div>
+	<div class="spring-bg" onclick="myAlert();">
+		클릭해보세요.
+	</div>
+</body>
+</html>

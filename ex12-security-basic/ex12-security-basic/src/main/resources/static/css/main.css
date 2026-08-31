@@ -1,0 +1,11 @@
+/* 전체 선택자를 통해 기본폰트 설정 */
+*{
+	font-family: 궁서체;	
+}
+/* 클래스 선택자를 통해 사이즈와 배경이 지정되어있다. 배경은 해당 영역내에서 반복된다. */
+.spring-bg{
+	width: 260px; height: 105px;
+	border:3px solid black;
+	background: url('../images/security.jpg') repeat;
+	text-align: center; font-size:30px;
+}
