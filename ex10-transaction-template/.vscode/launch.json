@@ -1,0 +1,24 @@
+{
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Spring Boot-Ex09TransactionManagerApplication<ex09-transaction-manager>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "com.edu.spingboot.Ex09TransactionManagerApplication",
+      "projectName": "ex09-transaction-manager",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env"
+    },
+    {
+      "type": "java",
+      "name": "Spring Boot-Ex09TransactionManagerApplication<ex10-transaction-template>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "com.edu.spingboot.Ex09TransactionManagerApplication",
+      "projectName": "ex10-transaction-template",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env"
+    }
+  ]
+}

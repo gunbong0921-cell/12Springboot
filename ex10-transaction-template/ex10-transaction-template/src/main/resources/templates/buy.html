@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h2>티켓 구매하기</h2>
+	<form action="buyTicket.do" method="post">
+	<table border="1">
+		<tr>
+			<th>아이디</th>
+			<td><input type="text" name="userid" value="" /></td>			
+		</tr>
+		<tr>
+			<th>수량</th>
+			<td>
+				<!-- 타임리프의 each 속성을 이용해서 <option> 태그를 10번 반복 출력함. -->
+				<select name="t_count">
+					<option th:each="num : ${#numbers.sequence(1,10)}"
+		                    th:value="${num}"
+		                    th:text="${num} + '장'"></option>
+				</select>
+			</td>			
+		</tr>
+		<tr>
+			<th>에러발생</th>
+			<td>
+				<input type="checkbox" name="err_flag" value="1" />
+				체크하면 예외가 발생합니다.
+			</td>			
+		</tr>
+	</table>
+	<input type="submit" value="전송하기" />
+	</form>
+</body>
+</html>
