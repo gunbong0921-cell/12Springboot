@@ -108,6 +108,38 @@ select * from security_admin;
 update security_admin set user_pw='{bcrypt}$2a$10$6tdvM/g97jSBb.F/6eEsIuqoGN3TdOPY3Q02sOtpkpfKKcVKtd9ZG';
 commit;
 
+DROP TABLE myfile;
+
+--퀴즈 테이블(myfile)생성
+-- 1. 테이블 생성
+CREATE TABLE MYFILE (
+    IDX       NUMBER              NOT NULL,
+    TITLE     VARCHAR2(200 BYTE)  NOT NULL,
+    CATE      VARCHAR2(100 BYTE),
+    OFILE     VARCHAR2(100 BYTE)  NOT NULL,
+    SFILE     VARCHAR2(50 BYTE)   NOT NULL,
+    POSTDATE  DATE                DEFAULT SYSDATE NOT NULL,
+    CONSTRAINT PK_TABLE_NAME PRIMARY KEY (IDX)
+);
+
+-- 2. 컬럼 주석(COMMENT) 추가
+COMMENT ON COLUMN TABLE_NAME.OFILE IS '원본파일명';
+COMMENT ON COLUMN TABLE_NAME.SFILE IS '서버에 저장된 파일명';
+
+CREATE SEQUENCE seq_myfile_num
+    INCREMENT BY 1
+    START WITH 1
+    NOMINVALUE
+    NOMAXVALUE
+    NOCACHE;
+
+ALTER TABLE MYFILE MODIFY (OFILE VARCHAR2(200 BYTE));
+ALTER TABLE MYFILE MODIFY (SFILE VARCHAR2(100 BYTE));
+
+select * from MYFILE;
+
+commit;
+
 
 
 

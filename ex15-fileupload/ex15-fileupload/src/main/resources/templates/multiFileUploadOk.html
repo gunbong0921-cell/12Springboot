@@ -1,0 +1,33 @@
+<html>
+<head>
+<meta charset="UTF-8">
+<title>MultiUpload Result</title>
+<style>
+img{max-width: 300px;}
+</style>
+</head>
+<body>
+	<h2>멀티 파일업로드 성공</h2>	
+	<th:block th:each="row, status : ${saveFileMaps}">
+       <p>
+           원본파일명<span th:text="${status.count}">1</span> :
+           <span th:text="${row.key}">original_name.jpg</span> <br>
+          
+           변경된파일명<span th:text="${status.count}">1</span> :
+           <span th:text="${row.value}">uuid_name.jpg</span> <br>
+          
+           <img th:src="@{|/uploads/${row.value}|}" th:alt="${row.key}" style="width:200px;">
+       </p>
+   </th:block>
+   <hr>
+  
+   <div>
+       제목 : <span th:text="${title}">제목 없음</span> <br>
+       카테고리 :
+       <th:block th:each="item, status : ${cate}">
+           <span th:text="${item}">카테고리</span>
+           <span th:if="${!status.last}">, </span>
+       </th:block>
+   </div>
+</body>
+</html>

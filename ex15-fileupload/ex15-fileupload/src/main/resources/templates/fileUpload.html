@@ -1,0 +1,35 @@
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<script>
+   function validateForm(form) {
+       if (form.title.value == "") {
+           alert("제목을 입력하세요.");
+           form.title.focus();
+           return false;
+       }
+       if (form.ofile.value == "") {
+           alert("첨부파일은 필수 입력입니다.");
+           return false;
+       }
+   }
+</script>
+<body>
+<h2>파일업로드</h2>
+  <!-- 파일을 업로드하기 위해서는 전송방식은 post, enctype은 multipart/form-data 로 설정해야한다. -->
+	<form name="fileForm" method="post" enctype="multipart/form-data"
+	      action="uploadProcess.do" onsubmit="return validateForm(this);">  
+    <!-- text타입과 같은 한줄 입력상자는 request내장객체의 getParameter() 메서드를 통해 가져올 수 있다. -->
+		제목 : <input type="text" name="title" /><br />
+		카테고리(선택사항) :
+	    <input type="checkbox" name="cate" value="사진" checked />사진
+	    <input type="checkbox" name="cate" value="과제" />과제
+	    <input type="checkbox" name="cate" value="워드" />워드
+	    <input type="checkbox" name="cate" value="음원" />음원 <br />
+		첨부파일 : <input type="file" name="ofile" /> <br />
+		<input type="submit" value="전송하기" />
+	</form>
+</body>
+</html>

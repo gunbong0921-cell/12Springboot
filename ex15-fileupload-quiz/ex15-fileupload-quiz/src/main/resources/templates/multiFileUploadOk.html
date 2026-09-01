@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>멀티 파일업로드 성공</title>
+<style>
+  table {
+    border-collapse: collapse;
+    width: 85%;
+    margin-top: 15px;
+  }
+  th, td {
+    border: 1px solid #333;
+    padding: 8px 12px;
+    text-align: center;
+  }
+  th {
+    background-color: #f9f9f9;
+    font-weight: bold;
+  }
+  td.title {
+    text-align: left;
+  }
+  .thumb {
+    width: 100px;
+    max-height: 100px;
+    vertical-align: middle;
+  }
+</style>
+</head>
+<body>
+  <h2>멀티 파일 업로드 성공</h2>
+
+  <p>
+    <a href="/multiFileUpload.do">파일 및 폼값 전송하기(멀티)</a> | 
+    <a href="/">메인으로</a>
+  </p>
+
+  <table border="1">
+    <thead>
+      <tr>
+        <th style="width: 8%;">No</th>
+        <th style="width: 22%;">Title</th>
+        <th style="width: 22%;">카테고리</th>
+        <th style="width: 18%;">원본파일명</th>
+        <th style="width: 16%;">이미지썸네일</th>
+        <th style="width: 14%;">날짜</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr th:if="${#lists.isEmpty(fileList)}">
+        <td colspan="6">등록된 파일이 없습니다.</td>
+      </tr>
+      <tr th:each="row, status : ${fileList}">
+        <td th:text="${row.idx}">1</td>
+        <td th:text="${row.title}" class="title">하이룽~</td>
+        <td th:text="${row.cate}">사진,과제,워드 음원</td>
+        <td th:text="${row.ofile}">리포트.jpg</td>
+        <td>
+          <img th:src="@{|/uploads/${row.sfile}|}" alt="썸네일" class="thumb" 
+               onerror="this.style.display='none'" />
+        </td>
+        <td th:text="${row.postdate}">2024-01-01</td>
+      </tr>
+    </tbody>
+  </table>
+</body>
+</html>

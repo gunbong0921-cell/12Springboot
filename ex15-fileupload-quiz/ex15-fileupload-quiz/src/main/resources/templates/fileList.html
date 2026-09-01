@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>MYFILE 업로드 목록</title>
+<style>
+  table {
+    width: 90%;
+    border-collapse: collapse;
+    margin-top: 15px;
+  }
+  th, td {
+    border: 1px solid #ccc;
+    padding: 8px 12px;
+    text-align: center;
+  }
+  th {
+    background-color: #f4f4f4;
+  }
+  .thumb {
+    max-width: 80px;
+    max-height: 80px;
+  }
+</style>
+</head>
+<body>
+  <h2>MYFILE 업로드 목록 (DB 조회)</h2>
+  
+  <p>
+    <a href="/">메인으로</a> | 
+    <a href="/fileUpload.do">파일업로드(싱글)</a> | 
+    <a href="/multiFileUpload.do">파일업로드(멀티)</a>
+  </p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>번호 (IDX)</th>
+        <th>제목</th>
+        <th>카테고리</th>
+        <th>원본 파일명</th>
+        <th>저장 파일명</th>
+        <th>미리보기</th>
+        <th>등록일</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr th:if="${#lists.isEmpty(fileList)}">
+        <td colspan="7">등록된 파일이 없습니다.</td>
+      </tr>
+      <tr th:each="row : ${fileList}">
+        <td th:text="${row.idx}">1</td>
+        <td th:text="${row.title}">제목</td>
+        <td th:text="${row.cate}">카테고리</td>
+        <td th:text="${row.ofile}">원본파일명</td>
+        <td th:text="${row.sfile}">저장파일명</td>
+        <td>
+          <img th:src="@{|/uploads/${row.sfile}|}" alt="미리보기" class="thumb"
+               onerror="this.style.display='none'" />
+        </td>
+        <td th:text="${row.postdate}">2026-09-01</td>
+      </tr>
+    </tbody>
+  </table>
+</body>
+</html>

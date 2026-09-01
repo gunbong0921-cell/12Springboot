@@ -1,0 +1,22 @@
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h2>파일업로드 성공</h2>
+	원본파일명 : <span th:text="${originalFileName}">원본파일명</span> <br>
+   변경된파일명 : <span th:text="${savedFileName}">변경된파일명</span> <br>
+  
+   <img th:src="@{|/uploads/${savedFileName}|}" alt="업로드 이미지" style="width:300px;"> <br>
+  
+   <!-- 단일값은 문자열로 출력 -->
+   제목 : [[${title}]] <br>   
+   카테고리 :
+   <!-- 체크박스 로 2개 이상의 값은 each 속성으로 반복해서 출력 -->
+   <th:block th:each="row, status : ${cate}">
+       <span th:text="${row}">카테고리명</span>
+       <span th:if="${!status.last}">, </span>
+   </th:block>
+</body>
+</html>

@@ -84,4 +84,32 @@ SELECT * FROM transaction_pay;
 
 
 
+--시큐리티 기본 테이블(필수 컬럼으로 구성)
+create table security_admin (
+   user_id varchar2(30) primary key,
+   user_pw varchar2(200) not null,
+   authority varchar2(20) default 'ROLE_USER',
+   enabled number(1) default 1
+);
+--일반회원(user) 권한 
+insert into security_admin values ('user1', '1234', 'ROLE_USER', 1);
+insert into security_admin values ('user2', '1234', 'ROLE_USER', 0);
+  
+--관리자(admin) 권한 
+insert into security_admin values ('admin1', '1234', 'ROLE_ADMIN', 1);   
+insert into security_admin values ('admin2', '1234', 'ROLE_ADMIN', 0);
+
+
+--레코드 확인
+select * from security_admin;
+
+
+--패스워드 암호화 적용 
+update security_admin set user_pw='{bcrypt}$2a$10$6tdvM/g97jSBb.F/6eEsIuqoGN3TdOPY3Q02sOtpkpfKKcVKtd9ZG';
+commit;
+
+
+
+
+
 
