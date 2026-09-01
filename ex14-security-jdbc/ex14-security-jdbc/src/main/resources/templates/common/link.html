@@ -1,0 +1,24 @@
+<h2>바로가기</h2>
+<div th:fragment="commonLinks">
+  <!-- 회원인증(로그인)이 된 경우 내부 코드를 실행 -->
+	<div sec:authorize="isAuthenticated()">
+      <!-- 로그인 아이디를 출력 -->
+	    <p>반갑습니다, <span sec:authentication="name"></span> 로그인 중입니다.</p>
+	</div>
+  <!-- 권한을 확인하여 내부의 문자열을 출력 -->
+	<div sec:authorize="hasRole('ADMIN')">
+	    <p>ADMIN 권한입니다.</p>
+	</div>
+	<div sec:authorize="hasRole('USER')">
+	    <p>USER 권한입니다.</p>
+	</div>	
+	<ul>	
+		<li sec:authorize="isAnonymous()"><a href="/myLogin.do">로그인(커스텀)</a></li>		
+		<li><a href="/guest/index.do">Guest영역</a></li>
+		<li><a href="/member/index.do">Member영역</a></li>
+		<li><a href="/admin/index.do">Admin영역</a></li>
+		<li sec:authorize="isAuthenticated()"><a href="/myLogout.do">로그아웃(커스텀)</a></li>
+	</ul>
+</div>
+
+
