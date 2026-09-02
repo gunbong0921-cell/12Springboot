@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 매퍼 인터페이스는 namespace에 패키지의 풀경로를 통해 설정 -->
+<mapper namespace="com.edu.springboot.restboard.IBoardService">
+
+  <!-- 목록보기 -->
+  <!-- 각 펭페이지에 출력할 레코드를 구간을 통해 인출한 후 반환. start와 end 컨트롤러에서 
+  계산된 값을 DTO를 통해 전달받아 삽입한다. -->
+  <select id="list" parameterType="com.edu.springboot.restboard.ParameterDTO" 
+  resultType="com.edu.springboot.restboard.BoardDTO">
+  SELECT * FROM (
+    SELECT tb.*, ROWNUM AS RNUM FROM (
+      SELECT * FROM myboard ORDER BY idx DESC
+    ) tb
+  )
+  WHERE RNUM BETWEEN #{start} AND #{end}
+  </select>
+
+  <!-- 검색하기 -->
+  <select id="search" parameterType="com.edu.springboot.restboard.ParameterDTO" resultType="com.edu.springboot.restboard.BoardDTO">
+    SELECT * FROM myboard
+    <if test="searchWord != null">
+      WHERE
+      <foreach collection="searchWord" item="str" open="(" close=")" separator="OR">
+        ${searchField} LIKE '%' || #{str} || '%'
+      </foreach>
+    </if>
+    ORDER BY idx DESC
+  </select>
+
+  <!-- 내용보기 -->
+  <select id="view" parameterType="com.edu.springboot.restboard.ParameterDTO" resultType="com.edu.springboot.restboard.BoardDTO">
+    SELECT * FROM myboard WHERE idx = #{idx}
+  </select>
+
+  <!-- 작성하기 -->
+  <insert id="write" parameterType="com.edu.springboot.restboard.BoardDTO">
+    INSERT INTO myboard (idx, name, title, content, visitcount) 
+    VALUES (seq_board_num.nextval, #{name}, #{title}, #{content}, 0)
+  </insert>
+</mapper>
