@@ -3,6 +3,7 @@ package com.edu.springboot.restboard;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import jakarta.servlet.http.HttpServletRequest;
@@ -13,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 
+@CrossOrigin(origins = "*")
 @RestController
 public class BoardRestController {
   
