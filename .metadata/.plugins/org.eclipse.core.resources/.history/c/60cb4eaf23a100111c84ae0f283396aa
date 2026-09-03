@@ -1,5 +1,0 @@
-package com.edu.springboot.jdbc;
-
-public class MemberDAO {
-
-}

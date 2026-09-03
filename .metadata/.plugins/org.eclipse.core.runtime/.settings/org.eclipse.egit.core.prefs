@@ -1,4 +1,4 @@
-GitRepositoriesView.GitDirectories=C\:\\02Workspaces\\12Springboot\\12Springboot\\.git;C\:\\02Workspaces\\12Springboot\\12Springboot\\.git\\.git;C\:\\02Workspaces\\12Springboot\\ex01-start\\.git;
-GitRepositoriesView.GitDirectories.relative=12Springboot\\.git;12Springboot\\.git\\.git;ex01-start\\.git;
+GitRepositoriesView.GitDirectories=C\:\\02Workspaces\\12Springboot\\.git;C\:\\02Workspaces\\12Springboot\\12Springboot\\.git;C\:\\02Workspaces\\12Springboot\\12Springboot\\.git\\.git;C\:\\02Workspaces\\12Springboot\\ex01-start\\.git;
+GitRepositoriesView.GitDirectories.relative=.git;12Springboot\\.git;12Springboot\\.git\\.git;ex01-start\\.git;
 core_autoIgnoreDerivedResources=false
 eclipse.preferences.version=1
