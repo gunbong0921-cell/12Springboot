@@ -1,0 +1,14 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h2>Spring Data JPA - insert</h2>
+	<p>
+	    아이디 : [[${member.id}]]<br>
+	    이름 : [[${member.username}]]<br>
+	    날짜 : [[${#temporals.format(member.createDate, 'yyyy-MM-dd')}]]
+	</p>
+</body>
+</html>

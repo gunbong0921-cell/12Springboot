@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="org.eclipse.buildship.ui.wizard.project.import">
-		<item key="project_location" value="C:\02Workspaces\12Springboot\ex15-fileupload-quiz\ex15-fileupload-quiz"/>
+		<item key="project_location" value="C:\02Workspaces\12Springboot\ex14-security-jdbc\ex14-security-jdbc"/>
 		<section name="ProjectImportWizard.dialogBounds">
 			<item key="DIALOG_X_ORIGIN" value="706"/>
 			<item key="DIALOG_Y_ORIGIN" value="191"/>

@@ -39,6 +39,12 @@ public class WebSecurityConfig {
       .requestMatchers("/css/**", "/js/**", "/images/**").permitAll()
       //정적리소스 static 하위의 모든 경로를 한꺼번에 지정하는 방법 
       //.requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
+      /*
+      아래 formLogin()의 permitAll()은 경로뿐 아니라 쿼리스트링까지 일치해야만 URL을 허용한다. 즉 /myLogin.do?
+      파라미터와 같은 URL은 허용하지 않으므로 쿼리스트링이 전부 사라지게 된다.
+      따라서 authorizeHttpRequests()에서 페이지를 허용해야 에러핸들러가 정상적으로 작동한다.  
+       */
+      .requestMatchers("/myLogin.do", "/myLoginAction.do").permitAll()
       //guest와 같이 누구나 접근할 수 있도록 지정한다. 
       .requestMatchers("/guest/**").permitAll()
       //부여된 2가지 중 하나의 권한을 획득하면 접근할 수 있다. 
