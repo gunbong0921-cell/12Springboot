@@ -13,10 +13,10 @@ import lombok.AccessLevel;
 
 //게터, 세터, toString 등을 추가
 @Data
-//인수생성자
-@AllArgsConstructor
-//기본생성자를 protected 접근지정자로 설정 
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+//인수생성자. Spring MVC가 이 생성자로 바인딩하지 않도록 private로 둔다.
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+//기본생성자. /update.do 커맨드 객체 바인딩은 no-args + setter를 사용한다.
+@NoArgsConstructor
 /* 디자인 패턴 중 빌더패턴을 적용하여 매서드 체이닝을 통해 멤버변수를 초기화 할 수 있는 기능을 제공한다.
 메서드를 닷(점)으로 연결해서 여러개를 한꺼번에 호출할 수 있는 문법을 말한다. */
 @Builder
