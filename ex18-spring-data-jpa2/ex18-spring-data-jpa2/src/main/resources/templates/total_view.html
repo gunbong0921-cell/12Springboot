@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+   <h2>Spring Data JPA - <span th:text="${title}">제목</span></h2>
+   <div th:if="${mode == 0}">
+       <p th:text="${result}">결과 메시지</p>
+   </div>
+   <div th:if="${mode == 1}">
+       <p>
+           아이디 : [[${result.id}]]<br>
+           이름 : [[${result.name}]]<br>
+           이메일 : [[${result.email}]]
+       </p>
+   </div>
+   <div th:if="${mode == 2}">
+       <th:block th:each="member : ${result}">
+           <p>
+               아이디 : [[${member.id}]]<br>
+               이름 : [[${member.name}]]<br>
+               이메일 : [[${member.email}]]
+           </p>
+       </th:block>
+   </div>
+</body>
+</html>
+
+
