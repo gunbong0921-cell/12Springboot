@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+   <meta charset="UTF-8">
+   <title>JPQL 조회 결과</title>
+</head>
+<body>
+   <h2>JPQL - @Query</h2>
+   <section th:if="${totalElements != null}">
+       <h3>Pageable 적용 결과</h3>
+       총 레코드 개수: <span th:text="${totalElements}"></span><br>
+       전체 페이지 수: <span th:text="${totalPages}"></span><br>
+       페이지당 레코드 수: <span th:text="${size}"></span><br>
+       페이지 번호: <span th:text="${pageNumber}"></span><br>
+       엘리먼트(콘텐츠) 개수: <span th:text="${numberOfElements}"></span>
+       <hr>
+   </section>
+   <h3>레코드 출력</h3>
+   <p th:each="member : ${members}">
+       아이디: <span th:text="${member.id}"></span>,
+       이름: <span th:text="${member.name}"></span>,
+       이메일: <span th:text="${member.email}"></span>
+   </p>
+</body>
+</html>

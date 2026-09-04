@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h2>Pageable(페이징적용)</h2>
+	
+	총 레코드 갯수 : <span th:text="${totalElements}">0</span> <br>
+	전체 페이지 수 : <span th:text="${totalPages}">0</span> <br>
+	페이지 당 레코드 수 : <span th:text="${size}">0</span> <br>
+	페이지번호 : <span th:text="${pageNumber}">0</span> <br>
+	엘리먼트(컨텐츠) 갯수 : <span th:text="${numberOfElements}">0</span> <br>
+	
+	<hr />
+	
+	<h3>레코드 출력</h3>
+	<div th:each="member : ${members}">
+		<p>
+			아이디 : [[${member.id}]],
+		    이름 : [[${member.name}]],
+		    이메일 : [[${member.email}]]
+		</p>
+	</div>
+</body>
+</html>

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+   <meta charset="UTF-8">
+   <title>JPQL</title>
+</head>
+<body>
+   <h2>JPQL</h2>
+   <ul>
+       <li><a th:href="@{/selectNameLike1.do(name='test')}">Name Like 조회1</a></li>
+       <li><a th:href="@{/selectNameLike2.do(name='test')}">Name Like 조회2</a></li>
+       <li><a th:href="@{/selectNameLike3.do(name='test', page=2)}">Name Like 조회3 (페이지 적용)</a></li>
+       <li><a th:href="@{/selectNameLike4.do(name='test')}">Name Like 조회4: Native SQL</a></li>
+   </ul>
+</body>
+</html>
